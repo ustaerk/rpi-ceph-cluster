@@ -17,7 +17,7 @@
 # Some additional examples are provided in comments below the default
 # configuration.
 
-hostname: ceph-osd-1
+hostname: ceph-osd-4
 
 # On first boot, set the (default) ubuntu user's password to "ubuntu" and
 # expire user passwords
