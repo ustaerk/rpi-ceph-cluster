@@ -1,0 +1,5 @@
+# apply the 'common' and 'osd' roles to the 'osds' host group
+- hosts: osds
+  roles:
+    - common
+    - osd

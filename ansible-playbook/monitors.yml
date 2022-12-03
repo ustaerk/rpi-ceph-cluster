@@ -1,0 +1,4 @@
+# 'monitors' only have the 'common' role for now
+- hosts: monitors
+  roles:
+    - common

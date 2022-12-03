@@ -1,0 +1,20 @@
+- name: distribute ceph keyring on all ceph nodes
+  ansible.posix.authorized_key:
+    user: uli
+    state: present
+    key: "{{ lookup('file', 'ceph.pub') }}"
+  become: true
+
+# disable wifi and bluetooth, restart if needed
+- name: disable wifi and bluetooth on all nodes
+  ansible.builtin.lineinfile:
+    line: '{{ item }}'
+    dest: "/boot/firmware/usercfg.txt"
+    regexp: "^{{ item }}"
+    create: true
+    mode: 0755
+  with_items:
+    - "dtoverlay=disable-wifi"
+    - "dtoverlay=disable-bt"
+  become: true
+  notify: reboot

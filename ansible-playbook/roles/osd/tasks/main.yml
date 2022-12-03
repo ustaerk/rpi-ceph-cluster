@@ -1,0 +1,19 @@
+# ensure smartmontools is installed to enable S.M.A.R.T. monitoring by ceph
+- name: install smartmontools
+  package:
+    name: smartmontools
+    state: present
+  become: true
+
+# ensure to disable uas for the seagate usb enclosure, if changed run update-initrd and reboot
+- name: disable uas on osds
+  ansible.builtin.lineinfile:
+    line: '{{ item }}'
+    dest: "/etc/modprobe.d/disable-uas-seagate.conf"
+    regexp: "^{{ item }}"
+    create: true
+    mode: 0644
+  with_items:
+    - "options usb-storage quirks=0bc2:2344:u"
+  become: true
+  notify: update-initrd

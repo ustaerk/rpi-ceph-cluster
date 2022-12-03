@@ -1,0 +1,10 @@
+- name: reboot
+  reboot:
+  become: true
+
+- name: update-initrd
+  command:
+    cmd: >
+      update-initramfs -u
+  become: true
+  notify: reboot
