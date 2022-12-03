@@ -1,5 +1,11 @@
+# Usage
 
+* check playbook syntax
 
-# TODO
-- ensure ceph pub key is deployed to all hosts
-- ensure docker.io is installed on all hosts
+  `ansible-lint site.yml`
+* run playbook only for certain group (`osds` in this case)
+
+  `ansible-playbook site.yml -i inventory.yml -l osds`
+* run complete playbook for all hosts
+
+  `ansible-playbook site.yml -i inventory.yml`
