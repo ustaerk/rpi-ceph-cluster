@@ -7,14 +7,18 @@
 
 # disable wifi and bluetooth, restart if needed
 - name: disable wifi and bluetooth on all nodes
-  ansible.builtin.lineinfile:
-    line: '{{ item }}'
-    dest: "/boot/firmware/usercfg.txt"
-    regexp: "^{{ item }}"
-    create: true
-    mode: 0755
-  with_items:
-    - "dtoverlay=disable-wifi"
-    - "dtoverlay=disable-bt"
+  ansible.builtin.blockinfile:
+    path: "/boot/firmware/config.txt"
+    block: |
+      [all]
+      dtoverlay=disable-wifi
+      dtoverlay=disable-bt
+  become: true
+  notify: reboot
+
+- name: remove usercfg.txt if present
+  ansible.builtin.file:
+    path: "/boot/firmware/usercfg.txt"
+    state: absent
   become: true
   notify: reboot

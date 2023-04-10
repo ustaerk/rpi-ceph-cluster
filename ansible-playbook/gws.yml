@@ -1,0 +1,4 @@
+# 'gws' only have the 'common' role for now
+- hosts: gws
+  roles:
+    - common
